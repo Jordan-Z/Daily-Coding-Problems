@@ -8,6 +8,7 @@ package dailycodingproblems;
 import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
+import static java.lang.Math.abs;
 
 /**
  *
@@ -69,6 +70,77 @@ public class DailyCodingProblems {
         } catch (IOException e) {
             System.out.println(e);
         }
+        Random rand = new Random();
+
+        int[][] nmatrix = new int[4][5];
+        for (int i = 0; i < nmatrix.length; i++) {
+            System.out.println("");
+            for (int j = 0; j < nmatrix[i].length; j++) {
+                nmatrix[i][j] = rand.nextInt(100);
+                System.out.print(nmatrix[i][j] + ", ");
+            }
+        }
+        System.out.println("");
+        for (int i = 0; i < nmatrix.length; i++) {
+            for (int j = 0; j < nmatrix[i].length; j++) {
+                System.out.print(nmatrix[i][j] + ", ");
+            }
+        }
+        //dividing 43/-8 without using multiplication or division operators
+        System.out.println("");
+        int a = 43;
+        int b = -8;
+        int quotient = 0;
+        quotient = divisionNoDividing(a, b);
+        System.out.println(quotient);
+        
+
+        //only allows odd numbers to be randomly selected
+        //arrL contains all even numbers from 0-9
+        Integer intN = 10;
+        ArrayList<Integer> arrL = new ArrayList<>();
+        arrL.add(0);
+        arrL.add(2);
+        arrL.add(4);
+        arrL.add(6);
+        arrL.add(8);
+        int randNum = randNumNandL(intN, arrL);
+        System.out.println(randNum);
+
+    }
+
+    //Given an integer n and a list of integers l, write a function that
+    //randomly generates a number from 0 to n-1 that isn't in l 
+    public static int randNumNandL(Integer n, ArrayList<Integer> l) {
+        Random rand = new Random();
+        int randNum = rand.nextInt(n - 1);
+        boolean checker = true;
+        //if l contains randNum that was generated it will return false
+        if (l.contains(randNum)) {
+            checker = false;
+        }
+
+        if (checker == true) {
+            return randNum;
+            //call function again to generate a random number until one is
+            //generated that is not in the arraylist of l
+        } else {
+            return randNumNandL(n, l);
+        }
+
+    }
+
+//subtract the divisor from the dividend until the dividend is less than the divisor
+    public static int divisionNoDividing(int a, int b) {
+        int count = 0;
+        while (abs(a) > abs(b)) {
+            a = abs(a) - abs(b);
+            count++;
+        }
+        if (a < 0 || b < 0) {
+            return -count;
+        }
+        return count;
     }
 
     //fibonacci sequence - finding how many different ways you can climb count # of steps
